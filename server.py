@@ -5,6 +5,7 @@ from flask import Flask, request, Response, make_response, send_file
 from functools import wraps
 from pymongo import MongoClient
 import io
+import json
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
@@ -98,7 +99,8 @@ def canvas():
 @app.route('/canvas/upload/<filename>', strict_slashes=True, methods=['POST'])
 @requires_auth
 def canvas_upload(filename):
-    f = request.get_data()
+    f = request.files['file']
+    #print(f)
     return upload(filename,f)
 
 #download files
