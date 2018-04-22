@@ -23,4 +23,4 @@ led_pins = {
 'red':32 ,
 'green':33 ,
 'blue':35 ,
-'mode': 'BOARD'}
+'mode': 10}
