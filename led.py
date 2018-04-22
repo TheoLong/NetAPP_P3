@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:40:56
+# @Last Modified time: 2018-04-22 16:47:49
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 from flask import Flask, request, Response, make_response
@@ -20,8 +20,8 @@ else:
 chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
 
-target_state = {'red': 100, 'green': 0, 'blue': 100}
-current_state = {'red': 0, 'green': 0, 'blue': 0}
+target_state = {'red': 100, 'green': 0.1, 'blue': 100}
+current_state = {'red': 0.1, 'green': 0.1, 'blue': 0.1}
 sleep_rate = 0.05
 on_off = 1
 
@@ -33,16 +33,28 @@ app = Flask(__name__)
 def changeState():
     new_state = request.get_json()
     if 'red' in new_state.key():
-        if 0<= new_state['red'] <= 100:
+        if 0< new_state['red'] < 100:
             target_state['red'] = new_state['red']
+        elif new_state >= 100:
+            target_state['red'] = 100
+        elif new_state <= 0:
+            target_state['red'] = 0.1
 
     if 'green' in new_state.key():
-        if 0<= new_state['green'] <= 100:
+        if 0<= new_state['green'] < 100:
             target_state['green'] = new_state['green']
+        elif new_state >= 100:
+            target_state['green'] = 100
+        elif new_state <= 0:
+            target_state['green'] = 0.1
 
     if 'blue' in new_state.key():
-        if 0<= new_state['blue'] <= 100:
+        if 0<= new_state['blue'] < 100:
             target_state['blue'] = new_state['blue']
+        elif new_state >= 100:
+            target_state['blue'] = 100
+        elif new_state <= 0:
+            target_state['blue'] = 0.1
 
     if 'rate' in new_state.key():
         sleep_rate = new_state['rate']
@@ -51,7 +63,7 @@ def changeState():
         on_off = state
 
 
-@app.route('/t1', strict_slashes=True, methods=['GET'])
+@app.route('/led', strict_slashes=True, methods=['GET'])
 def get_t1():
     report = current_state
     report['rate'] = sleep_rate
