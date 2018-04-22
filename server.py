@@ -6,6 +6,9 @@ from functools import wraps
 from pymongo import MongoClient
 import io
 import json
+
+custom_addr = ""
+led_addr = ""
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------

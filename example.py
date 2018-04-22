@@ -20,15 +20,28 @@ Use the Canvas/LED API documentation as a template/example for how you should fo
 """
 import requests
 
+custom_addr = "http://localhost:8081"
+def print_tests(response,i):
+    print("Test"+ str(i))
+    print("Status code: ", end='')
+    print(response.status_code)
+    print("Header: ", end='')
+    print(response.headers['content-type'])
+    print("contents: ", end='')
+    print(response.text)
+
 #print test1 - post
 response = requests.post(custom_addr+'/t1_update', data = "hello_test1")
-print("Test1: ")
-print(response.status_code)
-response.headers['content-type']
-response.text
+print_tests(response,str(1))
+
 #print test2 -post
 response = requests.post(custom_addr+'/t2_update', data = "hello_test2")
+print_tests(response,str(2))
+
 #print test3 -get
-response = requests.post(custom_addr+'/t1', data = "hello_test1")
+response = requests.get(custom_addr+'/t1')
+print_tests(response,str(3))
+
 #print test4 -get
-response = requests.post(custom_addr+'/t2', data = "hello_test1")
+response = requests.get(custom_addr+'/t2')
+print_tests(response,str(4))
