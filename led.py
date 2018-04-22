@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 13:33:50
+# @Last Modified time: 2018-04-22 13:48:59
 import RPi.GPIO as GPIO
 import led_pins
 from flask import Flask, request, Response, make_response
@@ -87,7 +87,7 @@ try:
                 current_state['green'] = current_state['green'] + 1
                 R.ChangeDutyCycle(current_state['green'])
             elif (current_state['green'] - target_state['green']) > 0:
-                current_state['green'] = current_state['green'] + -
+                current_state['green'] = current_state['green'] - 1
                 R.ChangeDutyCycle(current_state['green'])
 
             #changing blue
