@@ -18,3 +18,17 @@ as long as none of your APIs replicate functionality already defined in the assi
 Remember to also create a "custom.pdf" API Documentation. 
 Use the Canvas/LED API documentation as a template/example for how you should format your API documentation.
 """
+import requests
+
+#print test1 - post
+response = requests.post(custom_addr+'/t1_update', data = "hello_test1")
+print("Test1: ")
+print(response.status_code)
+response.headers['content-type']
+response.text
+#print test2 -post
+response = requests.post(custom_addr+'/t2_update', data = "hello_test2")
+#print test3 -get
+response = requests.post(custom_addr+'/t1', data = "hello_test1")
+#print test4 -get
+response = requests.post(custom_addr+'/t2', data = "hello_test1")

@@ -82,7 +82,6 @@ def requires_auth(f):
 #--------------------------------web sever-------------------------------
 
 #list files
-
 @app.route('/canvas')
 @requires_auth
 def canvas():
@@ -111,6 +110,43 @@ def canvas_download(filename):
     f = download_file(dic[filename])
     return send_file( io.BytesIO(f), as_attachment=True, attachment_filename= filename)
 
+@app.route('/led_set', strict_slashes=True, methods=['POST'])
+@requires_auth
+def led_set_color():
+    #set led color
+
+@app.route('/led', strict_slashes=True, methods=['GET'])
+@requires_auth
+def led_status():
+    #get led color
+
+@app.route('/t1_update', strict_slashes=True, methods=['POST'])
+@requires_auth
+def send_text1(text1):
+    #send text1
+    response = requests.post(custom_addr+'/t1_update', data = text1)
+    return response.text
+
+@app.route('/t2_update', strict_slashes=True, methods=['POST'])
+@requires_auth
+def send_text2(text2):
+    #send text2
+    response = requests.post(custom_addr+'/t2_update', data = text2)
+    return response.text
+
+@app.route('/t1', strict_slashes=True, methods=['GET'])
+@requires_auth
+def get_text1():
+    #get text1
+    response = requests.get(custom_addr+'/t1')
+    return response.text
+
+@app.route('/t2', strict_slashes=True, methods=['GET'])
+@requires_auth
+def get_text2():
+    #get text2
+    response = requests.get(custom_addr+'/t2')
+    return response.text
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8081, debug=True)
