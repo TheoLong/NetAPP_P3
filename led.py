@@ -2,9 +2,9 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:33:11
+# @Last Modified time: 2018-04-22 16:38:51
 import RPi.GPIO as GPIO
-import led_pins
+from led_pins import led_pins
 from flask import Flask, request, Response, make_response
 '''
 ==================  initialize  ====================
@@ -12,7 +12,7 @@ from flask import Flask, request, Response, make_response
 
 if led_pins['mode'] == 10:
     GPIO.setmode(GPIO.BOARD)
-elif led_pins[mode] == 11:
+elif led_pins['mode'] == 11:
     GPIO.setmode(GPIO.BCM)
 else:
     exit('Error: invalid GPIO mode')
