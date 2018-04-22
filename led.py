@@ -2,12 +2,13 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 17:44:05
+# @Last Modified time: 2018-04-22 17:56:59
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
 import json
-from flask import Flask, request, Response, make_response
+import socket
+import pickle
 '''
 ==================  initialize  ====================
 '''
@@ -27,6 +28,21 @@ current_state = {'red': 0.1, 'green': 0.1, 'blue': 0.1}
 sleep_rate = 0.05
 on_off = 1
 
+#creating socket
+host = ''
+port = 8081
+backlog = 5
+size = 1024
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    print("======= Created socket on port " + str(port))
+except socket.error as message:
+    if s:
+        s.close()
+    print ("======= Unable to open socket: " + str(message))    
+s.bind((host, port))
+s.listen(backlog)
 
 #================   main    =========================
 
@@ -43,6 +59,14 @@ B.start(0)
 #change state:
 try:
     while 1:
+        client, address = s.accept()
+        new_state = pickle.loads(client.recv(size))
+        if new_state:
+            if 'request' in package.key():
+                client.send(pickle.dumps(current_state))
+            else:
+                target_state = new_state
+              
         if on_off == 1:
             red = current_state['red']
             redt = target_state['red']
@@ -135,6 +159,15 @@ R.stop()
 G.stop()
 B.stop()
 GPIO.cleanup()
+
+def depackage(package):
+    package = pickle.loads(package)  
+    
+
+    encryptor = Fernet(key)
+    question = encryptor.decrypt(question)
+    question = question.decode('utf-8')
+    return question
 
 
 
