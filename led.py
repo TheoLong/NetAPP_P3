@@ -2,10 +2,11 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:49:41
+# @Last Modified time: 2018-04-22 16:56:58
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
+import json
 from flask import Flask, request, Response, make_response
 '''
 ==================  initialize  ====================
@@ -32,7 +33,7 @@ on_off = 1
 app = Flask(__name__)
 @app.route('/led', strict_slashes=True, methods=['POST'])
 def changeState():
-    new_state = request.get_json()
+    new_state = json.load(request.get_json())
     if 'red' in new_state.key():
         if 0< new_state['red'] < 100:
             target_state['red'] = new_state['red']
@@ -69,6 +70,7 @@ def get_t1():
     report = current_state
     report['rate'] = sleep_rate
     report['state'] = on_off
+    report = json.dump(report)
     return report
 
 
