@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:48:43
+# @Last Modified time: 2018-04-22 16:49:41
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -124,7 +124,9 @@ try:
 
 except KeyboardInterrupt:
     pass
-p.stop()
+R.stop()
+G.stop()
+B.stop()
 GPIO.cleanup()
 
 
