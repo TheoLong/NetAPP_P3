@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 17:56:59
+# @Last Modified time: 2018-04-22 17:58:20
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -160,14 +160,6 @@ G.stop()
 B.stop()
 GPIO.cleanup()
 
-def depackage(package):
-    package = pickle.loads(package)  
-    
-
-    encryptor = Fernet(key)
-    question = encryptor.decrypt(question)
-    question = question.decode('utf-8')
-    return question
 
 
 
