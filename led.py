@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 17:40:05
+# @Last Modified time: 2018-04-22 17:41:02
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -135,8 +135,6 @@ R.stop()
 G.stop()
 B.stop()
 GPIO.cleanup()
-
-def updateColor(newPWM)
 
 
 
