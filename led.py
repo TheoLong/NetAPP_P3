@@ -2,9 +2,10 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:47:49
+# @Last Modified time: 2018-04-22 16:48:43
 import RPi.GPIO as GPIO
 from led_pins import led_pins
+import time
 from flask import Flask, request, Response, make_response
 '''
 ==================  initialize  ====================
@@ -112,7 +113,7 @@ try:
                 R.ChangeDutyCycle(current_state['blue'])
 
             #sleep to rate
-            sleep(sleep_rate)
+            time.sleep(sleep_rate)
         else:
             R.ChangeDutyCycle(0)
             R.ChangeDutyCycle(0)
