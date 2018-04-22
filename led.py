@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 17:58:20
+# @Last Modified time: 2018-04-22 18:04:16
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -23,10 +23,10 @@ else:
 chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
 
-target_state = {'red': 100, 'green': 0.1, 'blue': 100}
+target_state = {'red': 100, 'green': 0.1, 'blue': 100, 'rate': 0.05, 'status' = 1}
 current_state = {'red': 0.1, 'green': 0.1, 'blue': 0.1}
-sleep_rate = 0.05
-on_off = 1
+sleep_rate = target_state['rate']
+on_off = target_state['status']
 
 #creating socket
 host = ''
@@ -66,6 +66,8 @@ try:
                 client.send(pickle.dumps(current_state))
             else:
                 target_state = new_state
+                sleep_rate = target_state['rate']
+                on_off = target_state['status']
               
         if on_off == 1:
             red = current_state['red']
@@ -137,6 +139,7 @@ try:
             current_state['red'] = red
             current_state['green'] = green
             current_state['blue'] = blue
+            
             R.ChangeDutyCycle(red)
             R.ChangeDutyCycle(green)
             R.ChangeDutyCycle(blue)
