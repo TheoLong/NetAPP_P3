@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:38:51
+# @Last Modified time: 2018-04-22 16:39:47
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 from flask import Flask, request, Response, make_response
@@ -25,9 +25,11 @@ current_state = {'red': 0, 'green': 0, 'blue': 0}
 sleep_rate = 0.05
 on_off = 1
 
+
 '''
 ==================  change color  ====================
 '''
+app.run(host='0.0.0.0', port=8081, debug=True)
 @app.route('/led', strict_slashes=True, methods=['POST'])
 def changeState():
     new_state = request.get_json()
@@ -59,7 +61,7 @@ def get_t1():
 
 
 #================   main    =========================
-app.run(host='0.0.0.0', port=8081, debug=True)
+
 
 #initial start
 R = GPIO.PWM(led_pins['red'], current_state['red']) 
