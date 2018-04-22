@@ -6,9 +6,20 @@ from functools import wraps
 from pymongo import MongoClient
 import io
 import json
+import pickle
+import socket
 
-custom_addr = ""
-led_addr = ""
+custom_addr = "creedmoor-pi.local"
+led_addr = "raspberrypi.local"
+#--------------connect to led-------------
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((led_addr, 8081))
+except socket.error as message:
+    if s:
+        s.close()
+    print ("Unable to open socket: " + str(message))
+    sys.exit(1)
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
@@ -117,11 +128,14 @@ def canvas_download(filename):
 @requires_auth
 def led_set_color():
     #set led color
+    dic = request.json()
+    return "led set succesfull"
 
 @app.route('/led', strict_slashes=True, methods=['GET'])
 @requires_auth
 def led_status():
     #get led color
+    
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])
 @requires_auth
