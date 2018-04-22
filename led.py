@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 16:58:10
+# @Last Modified time: 2018-04-22 17:01:11
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -115,14 +115,15 @@ try:
                 R.ChangeDutyCycle(current_state['blue'])
 
             #sleep to rate
+            print (current_state)
             time.sleep(sleep_rate)
         else:
             R.ChangeDutyCycle(0)
             R.ChangeDutyCycle(0)
             R.ChangeDutyCycle(0)
-            current_state['red'] = 0
-            current_state['green'] = 0
-            current_state['blue'] = 0
+            current_state['red'] = 0.1
+            current_state['green'] = 0.1
+            current_state['blue'] = 0.1
 
 except KeyboardInterrupt:
     pass
