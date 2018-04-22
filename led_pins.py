@@ -20,7 +20,7 @@ led_pins = {
 """
 
 led_pins = {
-'red': ,
-'green': ,
-'blue': ,
-'mode': }
+'red':32 ,
+'green':33 ,
+'blue':35 ,
+'mode': 'BOARD'}
