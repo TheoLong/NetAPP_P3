@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 17:38:56
+# @Last Modified time: 2018-04-22 17:40:05
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -59,7 +59,7 @@ try:
                 else:
                     red = red + 1
             #going down
-            elif diff > 0
+            elif diff > 0:
                 if 1 < diff < 0:
                     red = redt
                 else:
@@ -79,7 +79,7 @@ try:
                 else:
                     green = green + 1
             #going down
-            elif diff > 0
+            elif diff > 0:
                 if 1 < diff < 0:
                     green = greent
                 else:
@@ -99,7 +99,7 @@ try:
                 else:
                     blue = blue + 1
             #going down
-            elif diff > 0
+            elif diff > 0:
                 if 1 < diff < 0:
                     blue = bluet
                 else:
