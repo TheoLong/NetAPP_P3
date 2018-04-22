@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 13:48:59
+# @Last Modified time: 2018-04-22 16:31:53
 import RPi.GPIO as GPIO
 import led_pins
 from flask import Flask, request, Response, make_response
@@ -10,14 +10,14 @@ from flask import Flask, request, Response, make_response
 ==================  initialize  ====================
 '''
 
-if led_pins[3] == 'BOARD':
+if led_pins['mode'] == 'BOARD':
     GPIO.setmode(GPIO.BOARD)
-elif led_pins[3] == "BCM":
+elif led_pins[mode] == "BCM":
     GPIO.setmode(GPIO.BCM)
 else:
     exit('Error: invalid GPIO mode')
 
-chan_list = [led_pins[0],led_pins[1],led_pins[2]]  # in the order of RGB
+chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
 
 target_state = {'red': 100, 'green': 0, 'blue': 100}
@@ -62,9 +62,9 @@ def get_t1():
 app.run(host='0.0.0.0', port=8081, debug=True)
 
 #initial start
-R = GPIO.PWM(led_pins[0], current_state['red']) 
-G = GPIO.PWM(led_pins[1], current_state['green'])
-B = GPIO.PWM(led_pins[2], current_state['blue'])
+R = GPIO.PWM(led_pins['red'], current_state['red']) 
+G = GPIO.PWM(led_pins['green'], current_state['green'])
+B = GPIO.PWM(led_pins['blue'], current_state['blue'])
 
 R.start(0)
 G.start(0)
