@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:05:37
+# @Last Modified time: 2018-04-22 21:08:44
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -77,140 +77,140 @@ def updateLED():
     #change state:
 
     notDone = 3
-    try:
-        while 1:
-            print ('whole led')
-            if on_off == 1:
-                red = current_state['red']
-                redt = target_state['red']
-                green = current_state['green']
-                greent = target_state['green']
-                blue = current_state['blue']
-                bluet = target_state['blue']
+    # try:
+    while 1:
+        print ('while led')
+        if on_off == 1:
+            red = current_state['red']
+            redt = target_state['red']
+            green = current_state['green']
+            greent = target_state['green']
+            blue = current_state['blue']
+            bluet = target_state['blue']
 
 
-                #update ======================      red
-                rdiff = red - redt
-                #going up
-                if rdiff < 0:
-                    if -1 < rdiff < 0:
-                        red = redt
-                    else:
-                        # if red == 0:
-                        #     R.start(1)
-                        red = red + 1
-                #going down
-                elif rdiff > 0:
-                    if 1 < rdiff < 0:
-                        red = redt
-                    else:
-                        red = red - 1
-                #check range
-                if red > 100: 
-                    red = 100;
-                elif red <= 0:
-                    red = 0;
+            #update ======================      red
+            rdiff = red - redt
+            #going up
+            if rdiff < 0:
+                if -1 < rdiff < 0:
+                    red = redt
+                else:
+                    # if red == 0:
+                    #     R.start(1)
+                    red = red + 1
+            #going down
+            elif rdiff > 0:
+                if 1 < rdiff < 0:
+                    red = redt
+                else:
+                    red = red - 1
+            #check range
+            if red > 100: 
+                red = 100;
+            elif red <= 0:
+                red = 0;
 
-                print (rdiff)
+            print (rdiff)
 
 
-                #update ======================      green
-                gdiff = green - greent
-                #going up
-                if gdiff < 0:
-                    if -1 < gdiff < 0:
-                        green = greent
-                    else:
-                        # if green == 0:
-                        #     G.start(1)
-                        green = green + 1
-                #going down
-                elif gdiff > 0:
-                    if 1 < gdiff < 0:
-                        green = greent
-                        greenDone = 1
-                    else:
-                        green = green - 1
-                #check range
-                if green > 100: 
-                    green = 100;
-                elif green <= 0:
-                    green = 0;
+            #update ======================      green
+            gdiff = green - greent
+            #going up
+            if gdiff < 0:
+                if -1 < gdiff < 0:
+                    green = greent
+                else:
+                    # if green == 0:
+                    #     G.start(1)
+                    green = green + 1
+            #going down
+            elif gdiff > 0:
+                if 1 < gdiff < 0:
+                    green = greent
+                    greenDone = 1
+                else:
+                    green = green - 1
+            #check range
+            if green > 100: 
+                green = 100;
+            elif green <= 0:
+                green = 0;
 
-                print (gdiff)
+            print (gdiff)
 
-                #update ======================      blue
-                bdiff = blue - bluet
-                #going up
-                if bdiff < 0:
-                    if -1 < bdiff < 0:
-                        blue = bluet
-                    else:
-                        # if blue == 0:
-                        #     B.start(1)
-                        blue = blue + 1
-                #going down
-                elif bdiff > 0:
-                    if 1 < bdiff < 0:
-                        blue = bluet
-                        blueDone = 1
-                    else:
-                        blue = blue - 1
-                #check range
-                if blue > 100: 
-                    blue = 100;
-                elif blue <= 0:
-                    blue = 0;
+            #update ======================      blue
+            bdiff = blue - bluet
+            #going up
+            if bdiff < 0:
+                if -1 < bdiff < 0:
+                    blue = bluet
+                else:
+                    # if blue == 0:
+                    #     B.start(1)
+                    blue = blue + 1
+            #going down
+            elif bdiff > 0:
+                if 1 < bdiff < 0:
+                    blue = bluet
+                    blueDone = 1
+                else:
+                    blue = blue - 1
+            #check range
+            if blue > 100: 
+                blue = 100;
+            elif blue <= 0:
+                blue = 0;
 
-                print (bdiff)
+            print (bdiff)
 
-                current_state['red'] = red
-                current_state['green'] = green
-                current_state['blue'] = blue
-                
-                # if red == 0:
-                #     R.stop()
-                # else:
-                #     R.ChangeDutyCycle(red)
+            current_state['red'] = red
+            current_state['green'] = green
+            current_state['blue'] = blue
+            
+            # if red == 0:
+            #     R.stop()
+            # else:
+            #     R.ChangeDutyCycle(red)
 
-                # if green == 0:
-                #     G.stop()
-                # else:
-                #     G.ChangeDutyCycle(green)
+            # if green == 0:
+            #     G.stop()
+            # else:
+            #     G.ChangeDutyCycle(green)
 
-                # if blue == 0:
-                #     B.stop()
-                # else:
-                #     B.ChangeDutyCycle(blue)
+            # if blue == 0:
+            #     B.stop()
+            # else:
+            #     B.ChangeDutyCycle(blue)
 
-                R.ChangeDutyCycle(red)
-                G.ChangeDutyCycle(green)
-                B.ChangeDutyCycle(blue)
-                
+            R.ChangeDutyCycle(red)
+            G.ChangeDutyCycle(green)
+            B.ChangeDutyCycle(blue)
+            
 
-                #sleep to rate
-                print (current_state)
-                time.sleep(sleep_rate)
-                if (rdiff + gdiff + bdiff) == 0:
-                    break
-            else:
-                # R.stop()
-                # G.stop()
-                # B.stop()
-                current_state['red'] = 0
-                current_state['green'] = 0
-                current_state['blue'] = 0
-                R.ChangeDutyCycle(0)
-                G.ChangeDutyCycle(0)
-                B.ChangeDutyCycle(0)
+            #sleep to rate
+            print (current_state)
+            time.sleep(sleep_rate)
+            if (rdiff + gdiff + bdiff) == 0:
                 break
+        else:
+            # R.stop()
+            # G.stop()
+            # B.stop()
+            current_state['red'] = 0
+            current_state['green'] = 0
+            current_state['blue'] = 0
+            R.ChangeDutyCycle(0)
+            G.ChangeDutyCycle(0)
+            B.ChangeDutyCycle(0)
+            break
 
-    except KeyboardInterrupt:
-        pass
-    R.stop()
-    G.stop()
-    B.stop()
-    GPIO.cleanup()
+    # except KeyboardInterrupt:
+    #     pass
+    # R.stop()
+    # G.stop()
+    # B.stop()
+    # GPIO.cleanup()
 
 app.run(host='0.0.0.0', port=8081, debug=True)
 
