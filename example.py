@@ -20,7 +20,7 @@ Use the Canvas/LED API documentation as a template/example for how you should fo
 """
 import requests
 
-sever_addr = "http://raspberry-pi2:8081"
+sever_addr = "http://raspberrypi2:8081"
 def print_tests(response,i):
     print("Test"+ str(i))
     print("Status code: ", end='')
