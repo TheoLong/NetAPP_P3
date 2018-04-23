@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-23 15:11:53
+# @Last Modified time: 2018-04-23 17:09:38
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -47,15 +47,8 @@ R.start(0)
 B.start(0)
 G.start(0)
 
-
-
-manager = Manager()
-current_state = manager.dict()
-target_state = {'red': 100, 'green': 0.1, 'blue': 100, 'rate': 0.05, 'status': 1}
-current_state = {'red': 0.1, 'green': 0.1, 'blue': 0.1}
-sleep_rate = target_state['rate']
-on_off = target_state['status']
-
+target_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'status': 1}
+current_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'status': 1}
 
 #================   functions    =========================
 app = Flask(__name__)
@@ -64,7 +57,10 @@ def changeState():
     global target_state
     global sleep_rate 
     global on_off
-    target_state = json.loads(request.get_data().decode('utf-8'))
+    new_state = json.loads(request.get_data().decode('utf-8'))
+    for key in new_state.keys():
+        if key in target_state.keys():
+            target_state[key] = new_state[key]
     sleep_rate = target_state['rate']
     on_off = target_state['state']
     print (target_state)
@@ -93,7 +89,7 @@ def updateLED():
     notDone = 3
     # try:
     while 1:
-        if on_off == 1:
+        if current_state['state'] == 1:
             red = current_state['red']
             redt = target_state['red']
             green = current_state['green']
@@ -175,7 +171,7 @@ def updateLED():
 
             #sleep to rate
             print (current_state)
-            time.sleep(sleep_rate)
+            time.sleep(current_state['rate'])
             if rdiff ==0 and gdiff ==0 and bdiff ==0:
                 break
         else:
