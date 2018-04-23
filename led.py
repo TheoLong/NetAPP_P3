@@ -22,9 +22,9 @@ else:
 
 chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
-R = GPIO.PWM(led_pins['red'], 1000) 
-G = GPIO.PWM(led_pins['green'], 1000)
-B = GPIO.PWM(led_pins['blue'], 1000)
+R = GPIO.PWM(led_pins['red'], 2000) 
+G = GPIO.PWM(led_pins['green'], 2000)
+B = GPIO.PWM(led_pins['blue'], 2000)
 
 R.start(0)
 B.start(0)
