@@ -11,6 +11,7 @@ t2 = "Hello2"
 '''
 ==================  zeroconf  ====================
 '''
+print (check_output(['hostname', '-I']))
 desc = {'path': '/~paulsm/'}
 info = ServiceInfo("_http._tcp.local.",
                        "Custom._http._tcp.local.",
@@ -18,7 +19,7 @@ info = ServiceInfo("_http._tcp.local.",
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
-print("Registration of a service")
+print("Registration of a service " +str(check_output(['hostname', '-I'])))
 zeroconf.register_service(info)
 
 app = Flask(__name__)
