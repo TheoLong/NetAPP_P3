@@ -1,7 +1,23 @@
 from flask import Flask, request, Response, make_response
+import socket
+from zeroconf import ServiceInfo, Zeroconf
 import json
 t1 = "Hello1"
 t2 = "Hello2"
+
+'''
+==================  zeroconf  ====================
+'''
+desc = {'path': '/~paulsm/'}
+info = ServiceInfo("_http._tcp.local.",
+                       "Custom._http._tcp.local.",
+                       socket.inet_aton(socket.gethostbyname(socket.gethostname())), 8081, 0, 0,
+                       desc, "ash-2.local.")
+
+zeroconf = Zeroconf()
+print("Registration of a service")
+zeroconf.register_service(info)
+
 app = Flask(__name__)
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])

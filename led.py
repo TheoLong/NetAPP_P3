@@ -2,17 +2,31 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:40:01
+# @Last Modified time: 2018-04-22 22:44:15
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
 import json
+import socket
 from flask import Flask, request, Response, make_response
 from multiprocessing import Process, Value, Array, Manager
+from zeroconf import ServiceInfo, Zeroconf
+
+'''
+==================  zeroconf  ====================
+'''
+desc = {'path': '/~paulsm/'}
+info = ServiceInfo("_http._tcp.local.",
+                       "LED._http._tcp.local.",
+                       socket.inet_aton(socket.gethostbyname(socket.gethostname())), 8081, 0, 0,
+                       desc, "ash-2.local.")
+
+zeroconf = Zeroconf()
+print("Registration of a service")
+zeroconf.register_service(info)
 '''
 ==================  initialize  ====================
 '''
-
 if led_pins['mode'] == 10:
     GPIO.setmode(GPIO.BOARD)
 elif led_pins['mode'] == 11:
