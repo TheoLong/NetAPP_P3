@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, make_response
 import socket
 from zeroconf import ServiceInfo, Zeroconf
+from subprocess import check_output
 import json
 import fcntl
 import struct
@@ -10,19 +11,10 @@ t2 = "Hello2"
 '''
 ==================  zeroconf  ====================
 '''
-
-def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15])
-    )[20:24])
-
 desc = {'path': '/~paulsm/'}
 info = ServiceInfo("_http._tcp.local.",
                        "Custom._http._tcp.local.",
-                       get_ip_address('wlan'), 8081, 0, 0,
+                       check_output(['hostname', '-I']), 8081, 0, 0,
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
