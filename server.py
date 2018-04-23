@@ -37,7 +37,6 @@ def upload(file_name,file):
     print(url)
     parameter = response["upload_params"]
     parameter['file'] = file
-    parameter['key'] = "account_45110000000000001/attachments/6988997/"+file_name
     print(parameter)
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
