@@ -9,6 +9,7 @@ import json
 import pickle
 import socket
 import sys
+import collections
 
 led_addr = "http://raspberrypi2.local:8081"
 custom_addr = "http://raspberrypi2.local:8082"
@@ -34,10 +35,8 @@ def upload(file_name,file):
     response = response.json()
     #----------step2---send back parameters with file to url--------
     url = response["upload_url"]
-    print(url)
-    parameter = response["upload_params"]
+    parameter = collections.OrderedDict(response["upload_params"])
     parameter['file'] = file
-    print(parameter)
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     print(response.status_code)
