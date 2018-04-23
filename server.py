@@ -39,7 +39,7 @@ def upload(file_name,file):
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     if response.status_code != 200:
-        print(response)
+        print(response.text)
         return "error: upload unsuccess"
     else:
         return "upload success"
