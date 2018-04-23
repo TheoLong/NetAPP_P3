@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:28:07
+# @Last Modified time: 2018-04-22 21:40:01
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -22,9 +22,9 @@ else:
 
 chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
-R = GPIO.PWM(led_pins['red'], 2000) 
-G = GPIO.PWM(led_pins['green'], 2000)
-B = GPIO.PWM(led_pins['blue'], 2000)
+R = GPIO.PWM(led_pins['red'], 50) 
+G = GPIO.PWM(led_pins['green'], 50)
+B = GPIO.PWM(led_pins['blue'], 50)
 
 R.start(0)
 B.start(0)
