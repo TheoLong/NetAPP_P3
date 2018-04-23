@@ -38,6 +38,7 @@ def upload(file_name,file):
     parameter = response["upload_params"]
     parameter['file'] = file
     parameter['key'] = file_name
+    print(parameter)
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     if response.status_code != 200:
