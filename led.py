@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 20:39:46
+# @Last Modified time: 2018-04-22 20:46:15
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -22,6 +22,12 @@ else:
 
 chan_list = [led_pins['red'],led_pins['green'],led_pins['blue']]  # in the order of RGB
 GPIO.setup(chan_list, GPIO.OUT) # set to output
+R = GPIO.PWM(led_pins['red'], 50) 
+G = GPIO.PWM(led_pins['green'], 50)
+B = GPIO.PWM(led_pins['blue'], 50)
+
+
+
 manager = Manager()
 current_state = manager.dict()
 target_state = {'red': 100, 'green': 0.1, 'blue': 100, 'rate': 0.05, 'status': 1}
@@ -59,9 +65,7 @@ def updateLED():
     #initial start
     global target_state
     global current_state
-    R = GPIO.PWM(led_pins['red'], current_state['red']) 
-    G = GPIO.PWM(led_pins['green'], current_state['green'])
-    B = GPIO.PWM(led_pins['blue'], current_state['blue'])
+
 
     #change state:
 
