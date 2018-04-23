@@ -155,8 +155,10 @@ def led_set_color():
     dic ={}
     for item in loop_list:
         value = request.form.get(item)
-        if value:
+        if item != 'state' and value:
             dic[item] = float(value)
+        elif item == 'state' and value:
+            dic[item] = int(value)
     response = requests.post(led_addr+'/led', data = json.dumps(dic))
     return response.text
 
