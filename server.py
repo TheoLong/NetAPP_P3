@@ -157,7 +157,7 @@ def led_set_color():
     rate = request.form['rate']
     state = request.form['state']
     dic = {'red':red, 'green':green, 'blue':blue, 'rate':rate, 'state':state}
-    response = requests.post(led_addr+'/led', data = dic)
+    response = requests.post(led_addr+'/led', data = json.dumps(dic))
     return response.text
 
 @app.route('/led', strict_slashes=True, methods=['GET'])
