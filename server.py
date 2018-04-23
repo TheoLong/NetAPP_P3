@@ -12,6 +12,7 @@ import sys
 import collections
 from time import sleep
 from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
+from flask import abort
 '''
 ==================  zeroconf  ====================
 '''
@@ -72,9 +73,9 @@ def upload(file_name,file):
     print(response.status_code)
     print(response.text)
     if response.status_code != 200:
-        return "error upload unsuccess"
+        return abort(404)
     else:
-        return "upload success"
+        return '', 200
 
 #list all the file in group root folder, list the file in a dic
 def list_file():
@@ -123,26 +124,29 @@ def requires_auth(f):
 @app.route('/canvas')
 @requires_auth
 def canvas():
-    s = ""
     dic = list_file()
     #print (dic)
+    list=[]
     for key in dic:
-        s = s + " " + key
-    return s
+        list.append(key)
+    dic['list of filename'] = list
+    return json.dumps(dic)
 
 #upload files
 # test using curl curl -X POST -u yunfei:guoyunfei -F "file=@/Users/YunfeiGuo/Desktop/test.txt" "http://localhost:8081/canvas/upload/test.txt"
-@app.route('/canvas/upload/<filename>', strict_slashes=True, methods=['POST'])
+@app.route('/canvas/upload', strict_slashes=True, methods=['POST'])
 @requires_auth
-def canvas_upload(filename):
+def canvas_upload():
     f = request.files['file']
+    filename = request.form['filename']
     #print(f)
     return upload(filename,f)
 
 #download files
-@app.route('/canvas/download/<filename>', strict_slashes=True, methods=['GET'])
+@app.route('/canvas/download', strict_slashes=True, methods=['GET'])
 @requires_auth
-def canvas_download(filename):
+def canvas_download():
+    filename = request.form['filename']
     dic = list_file()
     f = download_file(dic[filename])
     return send_file( io.BytesIO(f), as_attachment=True, attachment_filename= filename)
