@@ -42,7 +42,7 @@ zeroconf.close()
 
 
 led_addr = 'http://'+LED_ip
-custom_addr = 'http://'custom_ip
+custom_addr = 'http://'+custom_ip
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
