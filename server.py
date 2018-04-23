@@ -41,8 +41,8 @@ while LED_ip == '' or custom_ip =='':
 zeroconf.close()
 
 
-led_addr = LED_ip
-custom_addr = custom_ip
+led_addr = 'http://'+LED_ip
+custom_addr = 'http://'custom_ip
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
