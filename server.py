@@ -34,6 +34,7 @@ def upload(file_name,file):
     response = response.json()
     #----------step2---send back parameters with file to url--------
     url = response["upload_url"]
+    print(url)
     parameter = response["upload_params"]
     parameter['file'] = (file_name, file)
     response = requests.post(url, files=parameter)
