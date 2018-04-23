@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:08:44
+# @Last Modified time: 2018-04-22 21:12:08
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -67,19 +67,15 @@ def report():
 #================   main    =========================
 
 def updateLED():
-
-    print ('update led')
     #initial start
     global target_state
     global current_state
-
 
     #change state:
 
     notDone = 3
     # try:
     while 1:
-        print ('while led')
         if on_off == 1:
             red = current_state['red']
             redt = target_state['red']
@@ -96,8 +92,6 @@ def updateLED():
                 if -1 < rdiff < 0:
                     red = redt
                 else:
-                    # if red == 0:
-                    #     R.start(1)
                     red = red + 1
             #going down
             elif rdiff > 0:
@@ -111,9 +105,6 @@ def updateLED():
             elif red <= 0:
                 red = 0;
 
-            print (rdiff)
-
-
             #update ======================      green
             gdiff = green - greent
             #going up
@@ -121,8 +112,6 @@ def updateLED():
                 if -1 < gdiff < 0:
                     green = greent
                 else:
-                    # if green == 0:
-                    #     G.start(1)
                     green = green + 1
             #going down
             elif gdiff > 0:
@@ -137,8 +126,6 @@ def updateLED():
             elif green <= 0:
                 green = 0;
 
-            print (gdiff)
-
             #update ======================      blue
             bdiff = blue - bluet
             #going up
@@ -146,8 +133,6 @@ def updateLED():
                 if -1 < bdiff < 0:
                     blue = bluet
                 else:
-                    # if blue == 0:
-                    #     B.start(1)
                     blue = blue + 1
             #going down
             elif bdiff > 0:
@@ -162,26 +147,9 @@ def updateLED():
             elif blue <= 0:
                 blue = 0;
 
-            print (bdiff)
-
             current_state['red'] = red
             current_state['green'] = green
             current_state['blue'] = blue
-            
-            # if red == 0:
-            #     R.stop()
-            # else:
-            #     R.ChangeDutyCycle(red)
-
-            # if green == 0:
-            #     G.stop()
-            # else:
-            #     G.ChangeDutyCycle(green)
-
-            # if blue == 0:
-            #     B.stop()
-            # else:
-            #     B.ChangeDutyCycle(blue)
 
             R.ChangeDutyCycle(red)
             G.ChangeDutyCycle(green)
@@ -194,9 +162,7 @@ def updateLED():
             if (rdiff + gdiff + bdiff) == 0:
                 break
         else:
-            # R.stop()
-            # G.stop()
-            # B.stop()
+
             current_state['red'] = 0
             current_state['green'] = 0
             current_state['blue'] = 0
@@ -204,14 +170,6 @@ def updateLED():
             G.ChangeDutyCycle(0)
             B.ChangeDutyCycle(0)
             break
-
-    # except KeyboardInterrupt:
-    #     pass
-    # R.stop()
-    # G.stop()
-    # B.stop()
-    # GPIO.cleanup()
-
 app.run(host='0.0.0.0', port=8081, debug=True)
 
 
