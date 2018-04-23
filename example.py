@@ -20,7 +20,7 @@ Use the Canvas/LED API documentation as a template/example for how you should fo
 """
 import requests
 
-sever_addr = "http://raspberry2.local:8081"
+sever_addr = "http://raspberrypi2.local:8081"
 def print_tests(response,i):
     print("Test"+ str(i))
     print("Status code: ", end='')
@@ -31,11 +31,11 @@ def print_tests(response,i):
     print(response.text)
 
 #print test1 - post
-response = requests.post(sever_addr+'/t1_update', files={'text':'hello_test1'}, auth=('theo', 'theo'))
+response = requests.post(sever_addr+'/t1_update', data={'text':'hello_test1'}, auth=('theo', 'theo'))
 print_tests(response,str(1))
 
 #print test2 -post
-response = requests.post(sever_addr+'/t2_update', files={'text':'hello_test2'}, auth=('theo', 'theo'))
+response = requests.post(sever_addr+'/t2_update', data={'text':'hello_test2'}, auth=('theo', 'theo'))
 print_tests(response,str(2))
 
 #print test3 -get
