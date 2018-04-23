@@ -156,7 +156,7 @@ def led_set_color():
     for item in loop_list:
         value = request.form.get(item)
         if value:
-            dic[item] = value
+            dic[item] = double(value)
     response = requests.post(led_addr+'/led', data = json.dumps(dic))
     return response.text
 
