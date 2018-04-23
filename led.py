@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:00:48
+# @Last Modified time: 2018-04-22 21:01:48
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -26,9 +26,9 @@ R = GPIO.PWM(led_pins['red'], 50)
 G = GPIO.PWM(led_pins['green'], 50)
 B = GPIO.PWM(led_pins['blue'], 50)
 
-R.start()
-B.start()
-G.start()
+R.start(0)
+B.start(0)
+G.start(0)
 
 
 
