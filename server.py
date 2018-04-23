@@ -135,15 +135,17 @@ def led_status():
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])
 @requires_auth
-def send_text1(text1):
+def send_text1():
     #send text1
+    text1 = request.get_data().decode('utf-8')
     response = requests.post(custom_addr+'/t1_update', data = text1)
     return response.text
 
 @app.route('/t2_update', strict_slashes=True, methods=['POST'])
 @requires_auth
-def send_text2(text2):
+def send_text2():
     #send text2
+    text1 = request.get_data().decode('utf-8')
     response = requests.post(custom_addr+'/t2_update', data = text2)
     return response.text
 

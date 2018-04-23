@@ -31,17 +31,17 @@ def print_tests(response,i):
     print(response.text)
 
 #print test1 - post
-response = requests.post(sever_addr+'/t1_update', data = "hello_test1")
+response = requests.post(sever_addr+'/t1_update', data = "hello_test1", auth=('theo', 'theo'))
 print_tests(response,str(1))
 
 #print test2 -post
-response = requests.post(sever_addr+'/t2_update', data = "hello_test2")
+response = requests.post(sever_addr+'/t2_update', data = "hello_test2", auth=('theo', 'theo'))
 print_tests(response,str(2))
 
 #print test3 -get
-response = requests.get(sever_addr+'/t1')
+response = requests.get(sever_addr+'/t1',auth=('theo', 'theo'))
 print_tests(response,str(3))
 
 #print test4 -get
-response = requests.get(sever_addr+'/t2')
+response = requests.get(sever_addr+'/t2',auth=('theo', 'theo'))
 print_tests(response,str(4))
