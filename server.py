@@ -10,8 +10,8 @@ import pickle
 import socket
 import sys
 
-led_addr = "http://raspberry-pi.local:8081"
-custom_addr = "http://creedmoor-pi.local:8081"
+led_addr = "http://raspberrypi2.local:8081"
+custom_addr = "http://raspberrypi2.local:8082"
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
@@ -34,7 +34,7 @@ def upload(file_name,file):
     response = response.json()
     #----------step2---send back parameters with file to url--------
     url = response["upload_url"]
-    print(url)
+    #print(url)
     parameter = response["upload_params"]
     parameter['file'] = file
     response = requests.post(url, files=parameter)
@@ -52,7 +52,7 @@ def list_file():
     }
     response = requests.get('https://canvas.vt.edu/api/v1/groups/52716/files/', headers=headers)
     response = response.json()
-    print (response)
+    #print (response)
     dic = {}
     for file in response:
         if file['folder_id'] == 1057446:
