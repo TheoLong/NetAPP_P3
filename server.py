@@ -129,6 +129,7 @@ def canvas():
     list=[]
     for key in dic:
         list.append(key)
+    rdic={}
     rdic['list of filename'] = list
     return json.dumps(rdic)
 
@@ -164,7 +165,7 @@ def led_set_color():
         elif item == 'state' and value:
             dic[item] = int(value)
     response = requests.post(led_addr+'/led', data = json.dumps(dic))
-    return response.text
+    return '', 200
 
 @app.route('/led', strict_slashes=True, methods=['GET'])
 @requires_auth
