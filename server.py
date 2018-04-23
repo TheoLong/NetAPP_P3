@@ -39,6 +39,8 @@ def upload(file_name,file):
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     if response.status_code != 200:
+        response = response.json()
+        print(response)
         return "error: upload unsuccess"
     else:
         return "upload success"
@@ -51,7 +53,7 @@ def list_file():
     }
     response = requests.get('https://canvas.vt.edu/api/v1/groups/52716/files/', headers=headers)
     response = response.json()
-    #print (response)
+    print (response)
     dic = {}
     for file in response:
         if file['folder_id'] == 1057446:
@@ -98,8 +100,7 @@ def canvas():
     return s
 
 #upload files
-# test using curl curl -X POST -u yunfei:guoyunfei -F "data=@/Users/YunfeiGuo/Desktop/test.txt" "http://localhost:8081/canvas/upload/test.txt"
-
+# test using curl curl -X POST -u yunfei:guoyunfei -F "file=@/Users/YunfeiGuo/Desktop/test.txt" "http://localhost:8081/canvas/upload/test.txt"
 @app.route('/canvas/upload/<filename>', strict_slashes=True, methods=['POST'])
 @requires_auth
 def canvas_upload(filename):
