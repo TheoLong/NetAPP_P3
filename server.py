@@ -151,12 +151,12 @@ def canvas_download(filename):
 @requires_auth
 def led_set_color():
     #set led color
-    red = request.form['red']
-    green = request.form['green']
-    blue = request.form['blue']
-    rate = request.form['rate']
-    state = request.form['state']
-    dic = {'red':red, 'green':green, 'blue':blue, 'rate':rate, 'state':state}
+    loop_list = ['red', 'green', 'blue','rate', 'state']
+    dic ={}
+    for item in loop_list:
+        value = request.form.get(item)
+        if value:
+            dic[item] = value
     response = requests.post(led_addr+'/led', data = json.dumps(dic))
     return response.text
 
