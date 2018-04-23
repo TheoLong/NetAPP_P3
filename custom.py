@@ -10,12 +10,12 @@ t2 = "Hello2"
 ==================  zeroconf  ====================
 '''
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(('google.com', 0))
+s.connect(('www.google.com', 0))
 ipAddress = s.getsockname()[0]
 desc = {'path': '/~paulsm/'}
 info = ServiceInfo("_http._tcp.local.",
                        "Custom._http._tcp.local.",
-                       ipAddress, 8081, 0, 0,
+                       ipAddress.encode('utf-8'), 8081, 0, 0,
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
