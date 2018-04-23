@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-23 17:09:38
+# @Last Modified time: 2018-04-23 17:12:45
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -47,8 +47,8 @@ R.start(0)
 B.start(0)
 G.start(0)
 
-target_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'status': 1}
-current_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'status': 1}
+target_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'state': 1}
+current_state = {'red': 0, 'green': 0, 'blue': 0, 'rate': 0.01, 'state': 1}
 
 #================   functions    =========================
 app = Flask(__name__)
