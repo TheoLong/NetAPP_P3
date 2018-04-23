@@ -37,7 +37,7 @@ def upload(file_name,file):
     print(url)
     parameter = response["upload_params"]
     parameter['file'] = file
-    parameter['key'] = file_name
+    parameter['key'] = "/groups/52716/files/"+file_name
     print(parameter)
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
