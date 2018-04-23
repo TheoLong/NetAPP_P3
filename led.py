@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 22:44:15
+# @Last Modified time: 2018-04-22 22:50:38
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -185,6 +185,11 @@ def updateLED():
             B.ChangeDutyCycle(0)
             break
 app.run(host='0.0.0.0', port=8081, debug=True)
+
+GPIO.cleanup()
+print("Unregistering...")
+zeroconf.unregister_service(info)
+zeroconf.close()
 
 
 
