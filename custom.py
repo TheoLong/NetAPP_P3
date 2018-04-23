@@ -15,7 +15,7 @@ ipAddress = s.getsockname()[0]
 desc = {'path': '/~paulsm/'}
 info = ServiceInfo("_http._tcp.local.",
                        "Custom._http._tcp.local.",
-                       ipAddress.encode('utf-8'), 8081, 0, 0,
+                       socket.inet_aton(ipAddress), 8081, 0, 0,
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
