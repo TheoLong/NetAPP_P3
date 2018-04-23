@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:01:48
+# @Last Modified time: 2018-04-22 21:02:32
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -190,9 +190,9 @@ def updateLED():
                 current_state['red'] = 0
                 current_state['green'] = 0
                 current_state['blue'] = 0
-                R.ChangeDutyCycle(red)
-                G.ChangeDutyCycle(green)
-                B.ChangeDutyCycle(blue)
+                R.ChangeDutyCycle(0)
+                G.ChangeDutyCycle(0)
+                B.ChangeDutyCycle(0)
                 break
 
     except KeyboardInterrupt:
