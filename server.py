@@ -34,12 +34,13 @@ def upload(file_name,file):
     response = response.json()
     #----------step2---send back parameters with file to url--------
     url = response["upload_url"]
-    #print(url)
+    print(url)
     parameter = response["upload_params"]
     parameter['file'] = file
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     if response.status_code != 200:
+        print(response.text)
         return "error upload unsuccess"
     else:
         return "upload success"
@@ -129,9 +130,6 @@ def led_status():
     #get led color
     response = requests.get(led_addr+'/led')
     return response.text
-
-
-
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])
 @requires_auth
