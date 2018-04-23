@@ -121,7 +121,12 @@ def canvas_download(filename):
 @requires_auth
 def led_set_color():
     #set led color
-    dic = request.get_data().decode('utf-8')
+    red = request.form['red']
+    green = request.form['green']
+    blue = request.form['blue']
+    rate = request.form['rate']
+    state = request.form['state']
+    dic = {'red':red, 'green':green, 'blue':blue, 'rate':rate, 'state':state}
     response = requests.post(led_addr+'/led', data = dic)
     return response.text
 
@@ -136,7 +141,7 @@ def led_status():
 @requires_auth
 def send_text1():
     #send text1
-    text1 = request.get_data().decode('utf-8')
+    text1 = request.form['text']
     response = requests.post(custom_addr+'/t1_update', data = text1)
     return response.text
 
@@ -144,7 +149,7 @@ def send_text1():
 @requires_auth
 def send_text2():
     #send text2
-    text2 = request.get_data().decode('utf-8')
+    text2 = request.form['text']
     response = requests.post(custom_addr+'/t2_update', data = text2)
     return response.text
 
