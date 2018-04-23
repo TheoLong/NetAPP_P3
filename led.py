@@ -2,8 +2,8 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 19:51:52
-# import RPi.GPIO as GPIO
+# @Last Modified time: 2018-04-22 20:37:58
+import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
 import json
