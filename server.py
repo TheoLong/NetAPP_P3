@@ -145,7 +145,7 @@ def send_text1():
 @requires_auth
 def send_text2():
     #send text2
-    text1 = request.get_data().decode('utf-8')
+    text2 = request.get_data().decode('utf-8')
     response = requests.post(custom_addr+'/t2_update', data = text2)
     return response.text
 
