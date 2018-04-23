@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:02:32
+# @Last Modified time: 2018-04-22 21:04:39
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -108,6 +108,9 @@ def updateLED():
                 elif red <= 0:
                     red = 0;
 
+                print (rdiff)
+
+
                 #update ======================      green
                 gdiff = green - greent
                 #going up
@@ -131,6 +134,8 @@ def updateLED():
                 elif green <= 0:
                     green = 0;
 
+                print (gdiff)
+
                 #update ======================      blue
                 bdiff = blue - bluet
                 #going up
@@ -153,6 +158,8 @@ def updateLED():
                     blue = 100;
                 elif blue <= 0:
                     blue = 0;
+
+                print (bdiff)
 
                 current_state['red'] = red
                 current_state['green'] = green
