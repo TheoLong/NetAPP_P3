@@ -10,9 +10,39 @@ import pickle
 import socket
 import sys
 import collections
+from time import sleep
+from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
+'''
+==================  zeroconf  ====================
+'''
+LED_ip = ''
+custom_ip = ''
+def on_service_state_change(zeroconf, service_type, name, state_change):
+    global LED_ip
+    global custom_ip
+    if name == "LED._http._tcp.local." and LED_ip == '':
+        if state_change is ServiceStateChange.Added:
+            info = zeroconf.get_service_info(service_type, name)
+            if info:
+                LED_ip = str("%s:%d" % (socket.inet_ntoa(info.address), info.port))
+                print ("Got LED ip: " + LED_ip)
+    elif name == "Custom._http._tcp.local." and custom_ip == '':
+        if state_change is ServiceStateChange.Added:
+            info = zeroconf.get_service_info(service_type, name)
+            if info:
+                custom_ip = str("%s:%d" % (socket.inet_ntoa(info.address), info.port))
+                print ("Got custom ip: " + custom_ip)
 
-led_addr = "http://raspberrypi2.local:8081"
-custom_addr = "http://raspberrypi2.local:8082"
+zeroconf = Zeroconf()
+browser = ServiceBrowser(zeroconf, "_http._tcp.local.", handlers=[on_service_state_change])
+print ("==============  Waiting for Custom and LED ip")
+while LED_ip == '' or custom_ip =='':
+    sleep(0.1)
+zeroconf.close()
+
+
+led_addr = LED_ip
+custom_addr = custom_ip
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------

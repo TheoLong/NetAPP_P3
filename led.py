@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 22:50:38
+# @Last Modified time: 2018-04-23 15:11:53
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -15,14 +15,17 @@ from zeroconf import ServiceInfo, Zeroconf
 '''
 ==================  zeroconf  ====================
 '''
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(('www.google.com', 0))
+ipAddress = s.getsockname()[0]
 desc = {'path': '/~paulsm/'}
 info = ServiceInfo("_http._tcp.local.",
                        "LED._http._tcp.local.",
-                       socket.inet_aton(socket.gethostbyname(socket.gethostname())), 8081, 0, 0,
+                       socket.inet_aton(ipAddress), 8081, 0, 0,
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
-print("Registration of a service")
+print("Registration of a service " +str(ipAddress))
 zeroconf.register_service(info)
 '''
 ==================  initialize  ====================

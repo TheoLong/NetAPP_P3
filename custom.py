@@ -22,6 +22,9 @@ zeroconf = Zeroconf()
 print("Registration of a service " +str(ipAddress))
 zeroconf.register_service(info)
 
+'''
+==================  flask  ====================
+'''
 app = Flask(__name__)
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])
