@@ -129,8 +129,8 @@ def canvas():
     list=[]
     for key in dic:
         list.append(key)
-    dic['list of filename'] = list
-    return json.dumps(dic)
+    rdic['list of filename'] = list
+    return json.dumps(rdic)
 
 #upload files
 # test using curl curl -X POST -u yunfei:guoyunfei -F "file=@/Users/YunfeiGuo/Desktop/test.txt" "http://localhost:8081/canvas/upload/test.txt"
@@ -146,7 +146,7 @@ def canvas_upload():
 @app.route('/canvas/download', strict_slashes=True, methods=['GET'])
 @requires_auth
 def canvas_download():
-    filename = request.form['filename']
+    filename = request.args.get('filename')
     dic = list_file()
     f = download_file(dic[filename])
     return send_file( io.BytesIO(f), as_attachment=True, attachment_filename= filename)
