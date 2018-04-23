@@ -8,18 +8,10 @@ import io
 import json
 import pickle
 import socket
+import sys
 
-custom_addr = "creedmoor-pi.local"
-led_addr = "raspberrypi.local"
-#--------------connect to led-------------
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((led_addr, 8081))
-except socket.error as message:
-    if s:
-        s.close()
-    print ("Unable to open socket: " + str(message))
-    sys.exit(1)
+led_addr = "http://raspberry-pi.local:8081"
+custom_addr = "http://creedmoor-pi.local:8081"
 #--------------set up flask--------------
 app = Flask(__name__)
 #--------------connect to mongodb server-------------
@@ -74,9 +66,8 @@ def download_file(url):
     response = requests.get(url, headers=headers)
     return response.content
 
-#---------------------- code below is open source code obtain from
+# 3 function below is open source code obtain from
 #---------------------http://flask.pocoo.org/snippets/8/, posted by Armin Ronacher
-
 def check_auth(username, password):
     result = post.find_one({'username': username, 'password':password})
     return result != None
@@ -124,18 +115,23 @@ def canvas_download(filename):
     f = download_file(dic[filename])
     return send_file( io.BytesIO(f), as_attachment=True, attachment_filename= filename)
 
-@app.route('/led_set', strict_slashes=True, methods=['POST'])
+@app.route('/led', strict_slashes=True, methods=['POST'])
 @requires_auth
 def led_set_color():
     #set led color
-    dic = request.json()
-    return "led set succesfull"
+    dic = request.get_data().decode('utf-8')
+    response = requests.post(led_addr+'/led', data = dic)
+    return response.text
 
 @app.route('/led', strict_slashes=True, methods=['GET'])
 @requires_auth
 def led_status():
     #get led color
-    
+    response = requests.get(led_addr+'/led')
+    return response.text
+
+
+
 
 @app.route('/t1_update', strict_slashes=True, methods=['POST'])
 @requires_auth
