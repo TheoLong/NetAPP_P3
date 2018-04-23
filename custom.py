@@ -3,8 +3,6 @@ import socket
 from zeroconf import ServiceInfo, Zeroconf
 from subprocess import check_output
 import json
-import fcntl
-import struct
 t1 = "Hello1"
 t2 = "Hello2"
 
@@ -21,7 +19,7 @@ info = ServiceInfo("_http._tcp.local.",
                        desc, "ash-2.local.")
 
 zeroconf = Zeroconf()
-print("Registration of a service " +str(check_output(['hostname', '-I'])))
+print("Registration of a service " +str(ipAddress))
 zeroconf.register_service(info)
 
 app = Flask(__name__)
