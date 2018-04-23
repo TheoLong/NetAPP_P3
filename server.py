@@ -70,8 +70,8 @@ def upload(file_name,file):
     parameter['file'] = file
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
-    print(response.status_code)
-    print(response.text)
+    #print(response.status_code)
+    #print(response.text)
     if response.status_code != 200:
         return abort(404)
     else:
