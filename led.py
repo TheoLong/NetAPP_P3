@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:04:39
+# @Last Modified time: 2018-04-22 21:05:37
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -67,6 +67,8 @@ def report():
 #================   main    =========================
 
 def updateLED():
+
+    print ('update led')
     #initial start
     global target_state
     global current_state
@@ -77,6 +79,7 @@ def updateLED():
     notDone = 3
     try:
         while 1:
+            print ('whole led')
             if on_off == 1:
                 red = current_state['red']
                 redt = target_state['red']
