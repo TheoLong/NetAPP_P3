@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 20:56:38
+# @Last Modified time: 2018-04-22 21:00:48
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -25,6 +25,10 @@ GPIO.setup(chan_list, GPIO.OUT) # set to output
 R = GPIO.PWM(led_pins['red'], 50) 
 G = GPIO.PWM(led_pins['green'], 50)
 B = GPIO.PWM(led_pins['blue'], 50)
+
+R.start()
+B.start()
+G.start()
 
 
 
@@ -89,8 +93,8 @@ def updateLED():
                     if -1 < rdiff < 0:
                         red = redt
                     else:
-                        if red == 0:
-                            R.start(1)
+                        # if red == 0:
+                        #     R.start(1)
                         red = red + 1
                 #going down
                 elif rdiff > 0:
@@ -111,8 +115,8 @@ def updateLED():
                     if -1 < gdiff < 0:
                         green = greent
                     else:
-                        if green == 0:
-                            G.start(1)
+                        # if green == 0:
+                        #     G.start(1)
                         green = green + 1
                 #going down
                 elif gdiff > 0:
@@ -134,8 +138,8 @@ def updateLED():
                     if -1 < bdiff < 0:
                         blue = bluet
                     else:
-                        if blue == 0:
-                            B.start(1)
+                        # if blue == 0:
+                        #     B.start(1)
                         blue = blue + 1
                 #going down
                 elif bdiff > 0:
@@ -154,20 +158,24 @@ def updateLED():
                 current_state['green'] = green
                 current_state['blue'] = blue
                 
-                if red == 0:
-                    R.stop()
-                else:
-                    R.ChangeDutyCycle(red)
+                # if red == 0:
+                #     R.stop()
+                # else:
+                #     R.ChangeDutyCycle(red)
 
-                if green == 0:
-                    G.stop()
-                else:
-                    R.ChangeDutyCycle(green)
+                # if green == 0:
+                #     G.stop()
+                # else:
+                #     G.ChangeDutyCycle(green)
 
-                if blue == 0:
-                    B.stop()
-                else:
-                    R.ChangeDutyCycle(blue)
+                # if blue == 0:
+                #     B.stop()
+                # else:
+                #     B.ChangeDutyCycle(blue)
+
+                R.ChangeDutyCycle(red)
+                G.ChangeDutyCycle(green)
+                B.ChangeDutyCycle(blue)
                 
 
                 #sleep to rate
@@ -176,12 +184,15 @@ def updateLED():
                 if (rdiff + gdiff + bdiff) == 0:
                     break
             else:
-                R.stop()
-                G.stop()
-                B.stop()
+                # R.stop()
+                # G.stop()
+                # B.stop()
                 current_state['red'] = 0
                 current_state['green'] = 0
                 current_state['blue'] = 0
+                R.ChangeDutyCycle(red)
+                G.ChangeDutyCycle(green)
+                B.ChangeDutyCycle(blue)
                 break
 
     except KeyboardInterrupt:
