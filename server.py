@@ -32,6 +32,7 @@ def upload(file_name,file):
     }
     response = requests.post('https://canvas.vt.edu/api/v1/groups/52716/files', headers=headers, files=files)
     response = response.json()
+    print (requests.text)
     #----------step2---send back parameters with file to url--------
     url = response["upload_url"]
     parameter = response["upload_params"]
@@ -39,8 +40,7 @@ def upload(file_name,file):
     response = requests.post(url, files=parameter)
     #----------step3---error handling-----------------------------
     if response.status_code != 200:
-        print (response.status_code)
-        return "upload success"
+        return "error upload unsuccess"
     else:
         return "upload success"
 
