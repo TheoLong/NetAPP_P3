@@ -19,8 +19,15 @@ Remember to also create a "custom.pdf" API Documentation.
 Use the Canvas/LED API documentation as a template/example for how you should format your API documentation.
 """
 import requests
+import argparse
 
-sever_addr = "http://raspberrypi2.local:8081"
+def parse():
+    parser = argparse.ArgumentParser(description='Arguments for client.')
+    parser.add_argument('-s', dest='server_ip',  help="server ip", type = str, action="store", default="http://raspberrypi2.local:8081")
+    parser.add_argument('-p', dest='port', help="port", type = str, action="store", default="8081")
+    args = parser.parse_args()
+    return args.server_ip+":"+args.port
+
 def print_tests(response,i):
     print("Test"+ str(i))
     print("Status code: ", end='')
@@ -30,6 +37,7 @@ def print_tests(response,i):
     print("contents: ", end='')
     print(response.text)
 
+sever_addr = parse()
 #print test1 - post
 response = requests.post(sever_addr+'/t1_update', data={'text':'hello_test1'}, auth=('theo', 'theo'))
 print_tests(response,str(1))
