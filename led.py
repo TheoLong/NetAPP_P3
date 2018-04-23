@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 20:46:15
+# @Last Modified time: 2018-04-22 20:56:38
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -46,6 +46,7 @@ def changeState():
     target_state = json.loads(request.get_data().decode('utf-8'))
     sleep_rate = target_state['rate']
     on_off = target_state['state']
+    print (target_state)
     updateLED()
     return "LED update completed"
 
