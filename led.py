@@ -2,7 +2,7 @@
 # @Author: TheoLong
 # @Date:   2018-04-15 00:38:15
 # @Last Modified by:   TheoLong
-# @Last Modified time: 2018-04-22 21:21:11
+# @Last Modified time: 2018-04-22 21:26:57
 import RPi.GPIO as GPIO
 from led_pins import led_pins
 import time
@@ -159,7 +159,7 @@ def updateLED():
             #sleep to rate
             print (current_state)
             time.sleep(sleep_rate)
-            if (rdiff + gdiff + bdiff) == 0:
+            if rdiff ==0 && gdiff ==0 && bdiff ==0
                 break
         else:
 
